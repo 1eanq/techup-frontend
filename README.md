@@ -1,4 +1,4 @@
-https://1eanq.github.io/techup-frontend/
+https://leanqha.github.io/techup-frontend/
 
 
 Памятка для разработчиков
