@@ -141,9 +141,9 @@ git merge develop
 
 ### Health Check
 
-| Метод | Эндпоинт | Описание              | Ответ       |
-|-------|----------|-----------------------|-------------|
-| GET   | /health  | Проверка состояния сервиса | 200 OK     |
+| Метод | Эндпоинт | Описание                   | Ответ       |
+|-------|----------|----------------------------|-------------|
+| GET   | /health  | Проверка состояния сервиса | 200 OK      |
 
 ---
 
@@ -151,21 +151,21 @@ git merge develop
 
 #### Public Endpoints
 
-| Метод | Эндпоинт           | Описание               | Тело запроса                             | Ответ                                  |
-|-------|--------------------|------------------------|-----------------------------------------|---------------------------------------|
-| POST  | /account/register  | Регистрация пользователя | `{ "email": string, "password": string, "name": string }` | 201 Created                          |
-| POST  | /account/login     | Логин пользователя      | `{ "email": string, "password": string }` | `{ "access_token": string, "refresh_token": string }` |
-| POST  | /account/refresh   | Обновление access_token | `{ "refresh_token": string }`            | `{ "access_token": string }`           |
+| Метод | Эндпоинт           | Описание                 | Тело запроса                                              | Ответ                                                 |
+|-------|--------------------|--------------------------|-----------------------------------------------------------|-------------------------------------------------------|
+| POST  | /account/register  | Регистрация пользователя | `{ "email": string, "password": string, "name": string }` | 201 Created                                           |
+| POST  | /account/login     | Логин пользователя       | `{ "email": string, "password": string }`                 | `{ "access_token": string, "refresh_token": string }` |
+| POST  | /account/refresh   | Обновление access_token  | `{ "refresh_token": string }`                             | `{ "access_token": string }`                          |
 
 #### Protected Endpoints  
 *Require Authorization header: Bearer `<token>`*
 
-| Метод | Эндпоинт                      | Описание                          | Тело запроса                                 | Ответ                                             |
-|-------|-------------------------------|---------------------------------|----------------------------------------------|--------------------------------------------------|
-| GET   | /account/secure/profile       | Получение профиля текущего пользователя | —                                            | `{ "id": int, "email": string, "name": string, "role": string }` |
-| POST  | /account/secure/change-password | Смена пароля                    | `{ "old_password": string, "new_password": string }` | —                                                |
-| PUT   | /account/secure/update        | Обновление данных профиля       | `{ "name": string, "email": string }`         | —                                                |
-| POST  | /account/secure/set-role      | Изменение роли пользователя (только admin) | `{ "user_id": int, "role": string }`           | —                                                |
+| Метод | Эндпоинт                        | Описание                                   | Тело запроса                                         | Ответ                                                            |
+|-------|---------------------------------|--------------------------------------------|------------------------------------------------------|------------------------------------------------------------------|
+| GET   | /account/secure/profile         | Получение профиля текущего пользователя    | —                                                    | `{ "id": int, "email": string, "name": string, "role": string }` |
+| POST  | /account/secure/change-password | Смена пароля                               | `{ "old_password": string, "new_password": string }` | —                                                                |
+| PUT   | /account/secure/update          | Обновление данных профиля                  | `{ "name": string, "email": string }`                | —                                                                |
+| POST  | /account/secure/set-role        | Изменение роли пользователя (только admin) | `{ "user_id": int, "role": string }`                 | —                                                                |
 
 ---
 
@@ -173,8 +173,8 @@ git merge develop
 
 *Require Authorization*
 
-| Метод | Эндпоинт        | Описание        | Параметры запроса                  | Ответ                                                                                      |
-|-------|-----------------|-----------------|----------------------------------|--------------------------------------------------------------------------------------------|
+| Метод | Эндпоинт         | Описание         | Параметры запроса                              | Ответ                                                                                                             |
+|-------|------------------|------------------|------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|
 | GET   | /schedule/search | Поиск расписания | `faculty_id`, `group_id`, `teacher_id`, `date` | `[ { "lesson_id": int, "group": string, "subject": string, "teacher": string, "room": string, "time": string } ]` |
 
 ---
@@ -183,11 +183,11 @@ git merge develop
 
 *Require Authorization*
 
-| Метод | Эндпоинт                             | Описание                    | Ответ                                                           |
+| Метод | Эндпоинт                           | Описание                    | Ответ                                                           |
 |-------|------------------------------------|-----------------------------|-----------------------------------------------------------------|
-| GET   | /map/buildings                     | Получение списка всех зданий | `[ { "id": int, "name": string, "address": string } ]`          |
-| GET   | /map/buildings/:building_id/rooms | Получение всех комнат в здании | `[ { "id": int, "name": string, "floor": int } ]`               |
-| GET   | /map/shortest-path/:start/:end    | Кратчайший путь между двумя комнатами | `{ "path": [int], "distance": float }`                           |
+| GET   | /map/buildings                     | Получение списка всех зданий | `[ { "id": int, "name": string, "address": string } ]`         |
+| GET   | /map/buildings/:building_id/rooms  | Получение всех комнат в здании | `[ { "id": int, "name": string, "floor": int } ]`            |
+| GET   | /map/path/:start/:end              | Кратчайший путь между двумя комнатами | `{ "path": [string], "distance": float }`             |
 
 ---
 
@@ -195,11 +195,11 @@ git merge develop
 
 *Require Authorization + Admin Role*
 
-| Метод | Эндпоинт      | Описание               | Тело запроса                              |
-|-------|---------------|------------------------|------------------------------------------|
-| POST  | /admin/faculty | Добавление нового факультета | `{ "name": string }`                      |
-| POST  | /admin/group   | Добавление новой группы | `{ "name": string, "faculty_id": int }`  |
-| POST  | /admin/lesson  | Добавление нового занятия | `{ "subject": string, "group_id": int, "teacher_id": int, "room_id": int, "time": string }` |
+| Метод | Эндпоинт       | Описание                     | Тело запроса                                                                                |
+|-------|----------------|------------------------------|---------------------------------------------------------------------------------------------|
+| POST  | /admin/faculty | Добавление нового факультета | `{ "name": string }`                                                                        |
+| POST  | /admin/group   | Добавление новой группы      | `{ "name": string, "faculty_id": int }`                                                     |
+| POST  | /admin/lesson  | Добавление нового занятия    | `{ "subject": string, "group_id": int, "teacher_id": int, "room_id": int, "time": string }` |
 
 ---
 
