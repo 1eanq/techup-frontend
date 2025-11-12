@@ -18,7 +18,7 @@ const daysOfWeek = ["Понедельник","Вторник","Среда","Че
 const SchedulePage: React.FC = () => {
     const [lessons, setLessons] = useState<Lesson[]>([]);
     const [groups, setGroups] = useState<string[]>([]);
-    const [faculties, setFaculties] = useState<string[]>([]);
+    //const [faculties, setFaculties] = useState<string[]>([]);
 
     const [filters, setFilters] = useState({
         group: "",
@@ -32,7 +32,7 @@ const SchedulePage: React.FC = () => {
 
     useEffect(() => {
         axios.get("/schedule/groups").then(res => setGroups(res.data));
-        axios.get("/schedule/faculties").then(res => setFaculties(res.data));
+        //axios.get("/schedule/faculties").then(res => setFaculties(res.data));
     }, []);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
